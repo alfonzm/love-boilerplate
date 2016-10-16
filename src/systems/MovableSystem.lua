@@ -5,11 +5,11 @@
 -- Required:
 --
 -- self.movable = {
--- 	velocity = { x = 0, y = 0 },
--- 	acceleration = { x = 0, y = 0 },
--- 	drag = { x = 0, y = 0 },
--- 	maxVelocity = { x = math.huge, y = math.huge },
--- 	speed = { x = 0, y = 0 } -- used to assign to acceleration
+-- 		velocity = { x = 0, y = 0 },
+-- 		acceleration = { x = 0, y = 0 },
+-- 		drag = { x = 0, y = 0 },
+-- 		maxVelocity = { x = math.huge, y = math.huge },
+-- 		speed = { x = 0, y = 0 } -- optional, can be used to set the acceleration for movement etc.
 -- }
 --
 
@@ -46,12 +46,9 @@ function MovableSystem:process(e, dt)
 			vel.x = 0
 		end
 	end
-	if accel.y == 0 and drag.y > 0 then
+	if accel.y == 0 and drag.y ~= 0 then
 		local sign = lume.sign(vel.y)
-		vel.y = vel.y - drag.y * dt * sign
-		if (vel.y < 0) ~= (sign < 0) then
-			vel.y = 0
-		end
+		vel.y = vel.y - drag.y * dt
 	end
 end
 

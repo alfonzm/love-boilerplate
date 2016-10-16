@@ -1,4 +1,4 @@
--- 
+--
 -- ShooterSystem
 -- by Alphonsus
 --
@@ -10,12 +10,16 @@
 -- 		shoot = false
 -- 	}
 --
+-- Usage:
+-- 		To shoot, set self.shooter.shoot to true
+--		e.g. self.shooter.shoot = love.keyboard.isDown("space")
+--
 
 local ShooterSystem = tiny.processingSystem(class "ShooterSystem")
 local Bullet = require "src.entities.Bullet"
 
 function ShooterSystem:init()
-	self.filter = tiny.requireAll("shooter")
+	self.filter = tiny.requireAll("shooter", "shoot")
 end
 
 function ShooterSystem:process(e, dt)
@@ -25,17 +29,11 @@ function ShooterSystem:process(e, dt)
 		s.shoot = false
 
 		if s.canAtk then
-			self:shoot(e, dt, s)
+			e:shoot(dt)
+			s.canAtk = false
+			timer.after(s.atkDelay, function() s.canAtk = true end)
 		end
 	end
-end
-
--- actually fire a bullet
-function ShooterSystem:shoot(e, dt, s)
-	world:addEntity(Bullet(e.pos.x, e.pos.y, e.angle))
-
-	s.canAtk = false
-	timer.after(s.atkDelay, function() s.canAtk = true end)
 end
 
 return ShooterSystem
