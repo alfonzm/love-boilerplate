@@ -25,7 +25,6 @@ end
 function Shaky:process(e, dt)
 	if e.shakyX then
 		e.pos.x = e.origPosX + lume.random(-e.shakyX, e.shakyX)
-		print(e.pos.x)
 	end
 
 	if e.shakyY then

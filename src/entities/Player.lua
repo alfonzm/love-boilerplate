@@ -26,7 +26,7 @@ function Player:new(x, y)
 		speed = { x = 100, y = 0 } -- used to assign to acceleration
 	}
 
-	self:setupParticles()
+	-- self:setupParticles()
 	self:setDrawLayer("player")
 
 	return self
@@ -35,8 +35,10 @@ end
 function Player:update(dt)
 	self:moveControls()
 
-	self.trailPs.ps:setPosition(self.pos.x + math.random(-2,2), self.pos.y + 10)
-	self.trailPs.ps:emit(1)
+	if self.trailPs then
+		self.trailPs.ps:setPosition(self.pos.x + math.random(-2,2), self.pos.y + 10)
+		self.trailPs.ps:emit(1)
+	end
 end
 
 function Player:draw()

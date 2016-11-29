@@ -15,6 +15,8 @@
 
 local DrawSystem = tiny.processingSystem(class "DrawSystem")
 
+-- zIndex is the entity's drawLayer set by e:setDrawLayer
+-- drawLayers by gameobjects are set to 1 by default
 function DrawSystem:init(zIndex)
     self.z = "zIndex" .. (zIndex or 1)
     self.filter = tiny.requireAll("draw", self.z)

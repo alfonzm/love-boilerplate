@@ -16,7 +16,6 @@
 --
 
 local ShooterSystem = tiny.processingSystem(class "ShooterSystem")
-local Bullet = require "src.entities.Bullet"
 
 function ShooterSystem:init()
 	self.filter = tiny.requireAll("shooter", "shoot")
